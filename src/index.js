@@ -32,12 +32,29 @@ const theme = createTheme({
       main: "#2ED47A",
       contrastText: "#fff",
     },
+    secondaryGray: {
+      main: "#90A0B7",
+    },
+    darkBlueText: {
+      main: "#334D6E",
+    },
+    iconGray: {
+      main: "#C2CFE0",
+    },
   },
   typography: {
     // Tell MUI what's the font-size on the html element is.
     htmlFontSize: 10,
     fontSize: 16,
     fontFamily: "iranyekan,sans-serif",
+  },
+  breakpoints: {
+    values: {
+      mobile: 0,
+      tablet: 768,
+      laptop: 1024,
+      desktop: 1200,
+    },
   },
   direction: "rtl",
   spacing: 5,
