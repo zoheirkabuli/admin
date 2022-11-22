@@ -148,9 +148,7 @@ const MainLayout = () => {
             </IconButton>
           )}
         </Box>
-        <Box component={"div"} sx={{ width: "95%", alignSelf: "center" }}>
-          <Outlet />
-        </Box>
+        <Outlet />
       </Box>
     </Box>
   );

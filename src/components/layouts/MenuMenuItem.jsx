@@ -8,7 +8,6 @@ import * as MuIcons from "@mui/icons-material";
 const MenuMenuItem = ({ iconName, title, path }) => {
   const { pathname } = useLocation();
   const ItemIcon = MuIcons[iconName];
-  console.log(pathname);
   return (
     <ListItemButton
       selected={pathname === path}

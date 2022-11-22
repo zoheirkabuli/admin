@@ -1,8 +1,14 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 // components
 import MainLayout from "./components/layouts/MainLayout";
+import PostsPage from "./components/posts/PostsPage";
+
+const client = new ApolloClient({
+  uri: "https://api-us-east-1.hygraph.com/v2/claar4ifq0jae01uj4d4z0g6n/master",
+  cache: new InMemoryCache(),
+});
 
 const router = createBrowserRouter([
   {
@@ -16,14 +22,18 @@ const router = createBrowserRouter([
       },
       {
         path: "posts",
-        element: <h1>نوشته ها</h1>,
+        element: <PostsPage />,
       },
     ],
   },
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <ApolloProvider client={client}>
+      <RouterProvider router={router} />
+    </ApolloProvider>
+  );
 };
 
 export default App;
