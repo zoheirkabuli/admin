@@ -26,7 +26,7 @@ const PostsTable = () => {
   if (error) return <h1>خطا{console.log(error)}</h1>;
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ width: "100%" }} aria-label="posts table">
+      <Table sx={{ width: "100%" }} size="small" aria-label="posts table">
         <TableHead>
           <TableRow>
             <TableCell sx={{ width: "6.5rem" }} align="center">
@@ -46,7 +46,13 @@ const PostsTable = () => {
         </TableHead>
         <TableBody>
           {data.posts.map((post, index) => (
-            <TableRow key={post.id} sx={{ "&:last-child td": { border: 0 } }}>
+            <TableRow
+              key={post.id}
+              sx={{
+                "&:last-child td": { border: 0 },
+                "& td": { fontSize: "1.4rem" },
+              }}
+            >
               <TableCell align="center">
                 {(index + 1).toString().toPersianDigits()}
               </TableCell>
@@ -55,6 +61,7 @@ const PostsTable = () => {
               <TableCell align="center">
                 <IconButton
                   component={Link}
+                  to={`/posts/edit/${post.url}`}
                   color="warning"
                   size="small"
                   aria-label="edit"

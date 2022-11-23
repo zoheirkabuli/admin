@@ -1,5 +1,6 @@
 import React from "react";
 import { Fab, Box } from "@mui/material";
+import { Link } from "react-router-dom";
 
 // icons
 import AddIcon from "@mui/icons-material/Add";
@@ -20,6 +21,8 @@ const PostsPage = () => {
     >
       <PostsTable />
       <Fab
+        component={Link}
+        to={"/posts/add"}
         color="primary"
         aria-label="add"
         size="medium"

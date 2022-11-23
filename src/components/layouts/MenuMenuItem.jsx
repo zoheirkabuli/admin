@@ -10,7 +10,7 @@ const MenuMenuItem = ({ iconName, title, path }) => {
   const ItemIcon = MuIcons[iconName];
   return (
     <ListItemButton
-      selected={pathname === path}
+      selected={path === "/" ? pathname === path : pathname.includes(path)}
       component={Link}
       to={path}
       sx={{
