@@ -7,8 +7,8 @@ import { Outlet } from "react-router-dom";
 import MainMenu from "./MainMenu";
 
 // icons
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import MainHeader from "./MainHeader";
 
 const ToggleIcon = (props) => {
   return (
@@ -128,26 +128,7 @@ const MainLayout = () => {
           }),
         }}
       >
-        <Box
-          component={"header"}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            padding: "1.5rem",
-            borderBottom: "1px solid #EBEFF2",
-          }}
-        >
-          {isMobile && (
-            <IconButton
-              color="primary"
-              onClick={() => {
-                setOpen((prevOpen) => !prevOpen);
-              }}
-            >
-              <MenuRoundedIcon />
-            </IconButton>
-          )}
-        </Box>
+        <MainHeader setOpen={setOpen} />
         <Outlet />
       </Box>
     </Box>
