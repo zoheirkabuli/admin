@@ -25,8 +25,17 @@ const PostsTable = () => {
   if (loading) return <h1>درحال بارگذاری</h1>;
   if (error) return <h1>خطا{console.log(error)}</h1>;
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ width: "100%" }} size="small" aria-label="posts table">
+    <TableContainer component={Paper} elevation={3}>
+      <Table
+        sx={{
+          width: {
+            mobile: "70rem",
+            tablet: "100%",
+          },
+        }}
+        size="small"
+        aria-label="posts table"
+      >
         <TableHead>
           <TableRow>
             <TableCell sx={{ width: "6.5rem" }} align="center">

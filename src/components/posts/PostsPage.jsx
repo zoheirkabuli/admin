@@ -28,8 +28,14 @@ const PostsPage = () => {
         size="medium"
         sx={{
           position: "fixed",
-          right: "4rem",
-          bottom: "4rem",
+          right: {
+            mobile: "2rem",
+            tablet: "4rem",
+          },
+          bottom: {
+            mobile: "3rem",
+            tablet: "4rem",
+          },
         }}
         variant="extended"
       >
