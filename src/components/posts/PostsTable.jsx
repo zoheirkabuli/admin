@@ -42,13 +42,27 @@ const PostsTable = () => {
   }
 
   const checkHandler = (event) => {
-    if (event.target.id === "select-all") {
+    const { id, checked } = event.target;
+    if (id === "select-all") {
+      if (checked) {
+        setCheckeds(data.posts.map((post) => post.id));
+      } else {
+        setCheckeds([]);
+      }
     } else {
+      if (checked) {
+        setCheckeds((prevCheckeds) => [...prevCheckeds, id]);
+      } else {
+        setCheckeds((prevCheckeds) =>
+          prevCheckeds.filter((item) => item !== id)
+        );
+      }
     }
   };
 
   return (
     <>
+      {console.log(checkeds)}
       <TableContainer component={Paper} elevation={3}>
         <Table
           sx={{
