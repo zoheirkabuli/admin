@@ -11,6 +11,8 @@ import {
   Backdrop,
   CircularProgress,
   Checkbox,
+  Snackbar,
+  Slide,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
@@ -22,9 +24,44 @@ import { GET_ALL_POSTS } from "../../services/api";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 
+function TransitionUp(props) {
+  return <Slide {...props} direction="up" />;
+}
+
 const PostsTable = () => {
   const { error, loading, data } = useQuery(GET_ALL_POSTS);
   const [checkeds, setCheckeds] = useState([]);
+  const [open, setOpen] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const checkHandler = (event) => {
+    const { id, checked } = event.target;
+    if (id === "select-all") {
+      if (checked) {
+        setCheckeds(data.posts.map((post) => post.id));
+        setOpen(true);
+      } else {
+        setCheckeds([]);
+        setOpen(false);
+      }
+    } else {
+      if (checked) {
+        setCheckeds((prevCheckeds) => [...prevCheckeds, id]);
+        setOpen(true);
+      } else {
+        setCheckeds((prevCheckeds) =>
+          prevCheckeds.filter((item) => item !== id)
+        );
+        setOpen(false);
+      }
+    }
+  };
 
   if (error) return <h1>خطا{console.log(error)}</h1>;
   if (loading) {
@@ -41,28 +78,18 @@ const PostsTable = () => {
     );
   }
 
-  const checkHandler = (event) => {
-    const { id, checked } = event.target;
-    if (id === "select-all") {
-      if (checked) {
-        setCheckeds(data.posts.map((post) => post.id));
-      } else {
-        setCheckeds([]);
-      }
-    } else {
-      if (checked) {
-        setCheckeds((prevCheckeds) => [...prevCheckeds, id]);
-      } else {
-        setCheckeds((prevCheckeds) =>
-          prevCheckeds.filter((item) => item !== id)
-        );
-      }
-    }
-  };
-
   return (
     <>
-      {console.log(checkeds)}
+      <Snackbar
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={TransitionUp}
+        message={`${checkeds.length} مورد انتخاب شده است`}
+        key={"Transition-Up"}
+        autoHideDuration={5000}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        sx={{ width: "25%" }}
+      />
       <TableContainer component={Paper} elevation={3}>
         <Table
           sx={{

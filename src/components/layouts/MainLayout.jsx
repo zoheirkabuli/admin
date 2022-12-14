@@ -151,7 +151,20 @@ const MainLayout = () => {
         }}
       >
         <MainHeader setOpen={setOpen} />
-        <Outlet />
+        <Box
+          component={"div"}
+          sx={{
+            width: {
+              mobile: "95%",
+              tablet: "97%",
+            },
+            alignSelf: "center",
+            position: "relative",
+            flexGrow: 1,
+          }}
+        >
+          <Outlet />
+        </Box>
       </Box>
     </Box>
   );

@@ -5,7 +5,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import MainLayout from "./components/layouts/MainLayout";
 import PostsPage from "./components/posts/PostsPage";
 import AddEditPost from "./components/posts/AddEditPost";
-import MainDashboard from "./components/dashboard/MainDashboard";
+import Dashboard from "./components/dashboard/Dashboard";
 
 const client = new ApolloClient({
   uri: "https://api-eu-central-1-shared-euc1-02.hygraph.com/v2/clb5ao67h048c01ug41agcslq/master",
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <MainDashboard />,
+        element: <Dashboard />,
       },
       {
         path: "posts",

@@ -1,5 +1,5 @@
 import React from "react";
-import { Fab, Box } from "@mui/material";
+import { Fab } from "@mui/material";
 import { Link } from "react-router-dom";
 
 // icons
@@ -10,18 +10,7 @@ import PostsTable from "./PostsTable";
 
 const PostsPage = () => {
   return (
-    <Box
-      component={"div"}
-      sx={{
-        width: {
-          mobile: "95%",
-          tablet: "97%",
-        },
-        alignSelf: "center",
-        position: "relative",
-        flexGrow: 1,
-      }}
-    >
+    <>
       <PostsTable />
       <Fab
         component={Link}
@@ -45,7 +34,7 @@ const PostsPage = () => {
         <AddIcon sx={{ mr: 2 }} />
         پست جدید
       </Fab>
-    </Box>
+    </>
   );
 };
 

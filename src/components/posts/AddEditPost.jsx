@@ -6,6 +6,9 @@ import {
   Button,
   Backdrop,
   CircularProgress,
+  Card,
+  CardHeader,
+  CardContent,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
@@ -49,8 +52,9 @@ const AddEditPost = () => {
         sx={{
           color: "#fff",
           position: "absolute",
-          height: "100vh",
+          height: "100%",
           zIndex: (theme) => theme.zIndex.drawer - 1,
+          borderRadius: "1rem",
         }}
         open
       >
@@ -61,14 +65,10 @@ const AddEditPost = () => {
 
   return (
     <>
-      {console.log("hi")}
       <Box
         component={"div"}
         sx={{
-          width: {
-            mobile: "95%",
-            tablet: "97%",
-          },
+          width: "100%",
           alignSelf: "center",
           display: "flex",
           flexDirection: {
@@ -82,100 +82,126 @@ const AddEditPost = () => {
 
         <Box
           component={"div"}
-          sx={{ width: { mobile: "100%", tablet: "75%" } }}
-        >
-          <Paper
-            elevation={3}
-            sx={{
-              padding: "1.5rem",
-              width: "100%",
+          sx={{
+            width: {
+              mobile: "100%",
+              tablet: "75%",
               display: "flex",
               flexDirection: "column",
               gap: "2rem",
-            }}
-          >
-            {/* title field */}
-            <TextField
-              id="title"
-              label="عنوان"
-              variant="outlined"
-              fullWidth
-              size="small"
-              value={post.title}
-              onChange={(e) => {
-                setPost((prevPost) => ({ ...prevPost, title: e.target.value }));
-              }}
-            />
-            {/* slug field */}
-            <Box
-              component={"div"}
+            },
+          }}
+        >
+          <Card component={Paper} elevation={3}>
+            <CardHeader
               sx={{
+                "& > .MuiCardHeader-content": {
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1rem",
+                },
+              }}
+              title="ویرایش محتوا"
+              titleTypographyProps={{ fontWeight: "bold", fontSize: "2rem" }}
+            />
+            <CardContent
+              sx={{
+                padding: "1.5rem",
+                width: "100%",
                 display: "flex",
-                flexDirection: { mobile: "column", tablet: "row" },
+                flexDirection: "column",
                 gap: "2rem",
+                "& .tox-statusbar__branding": {
+                  display: "none",
+                },
               }}
             >
+              {/* title field */}
               <TextField
-                id="slug"
-                label="آدرس"
+                id="title"
+                label="عنوان"
                 variant="outlined"
+                fullWidth
                 size="small"
-                value={decodeURI(post.slug)}
+                value={post.title}
                 onChange={(e) => {
                   setPost((prevPost) => ({
                     ...prevPost,
-                    url: e.target.value.replace(/\s+/g, "-").toLowerCase(),
+                    title: e.target.value,
                   }));
-                }}
-                sx={{
-                  flexGrow: 1,
                 }}
               />
-
-              <Button
-                variant="contained"
-                onClick={() => {
-                  setPost((prevPost) => ({
-                    ...prevPost,
-                    url: prevPost.title.replace(/\s+/g, "-").toLowerCase(),
-                  }));
+              {/* slug field */}
+              <Box
+                component={"div"}
+                sx={{
+                  display: "flex",
+                  flexDirection: { mobile: "column", tablet: "row" },
+                  gap: "2rem",
                 }}
               >
-                تولید آدرس
-              </Button>
-            </Box>
+                <TextField
+                  id="slug"
+                  label="آدرس"
+                  variant="outlined"
+                  size="small"
+                  value={decodeURI(post.slug)}
+                  onChange={(e) => {
+                    setPost((prevPost) => ({
+                      ...prevPost,
+                      url: e.target.value.replace(/\s+/g, "-").toLowerCase(),
+                    }));
+                  }}
+                  sx={{
+                    flexGrow: 1,
+                  }}
+                />
 
-            <BundledEditor
-              onInit={(evt, editor) => (editorRef.current = editor)}
-              initialValue={post.content.html}
-              init={{
-                height: "600",
-                menubar: false,
-                plugins: [
-                  "advlist",
-                  "anchor",
-                  "autolink",
-                  "help",
-                  "image",
-                  "link",
-                  "lists",
-                  "searchreplace",
-                  "table",
-                  "wordcount",
-                  "directionality",
-                ],
-                toolbar:
-                  "blocks | " +
-                  "bold italic forecolor | rtl ltr | alignright aligncenter " +
-                  "alignleft alignjustify | bullist numlist indent outdent | " +
-                  "removeformat",
-                content_style:
-                  "body { font-family:iranyekan,Arial,sans-serif; font-size:14px }",
-                language_url: "/langs/fa.js",
-                language: "fa",
-              }}
-            />
-          </Paper>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    setPost((prevPost) => ({
+                      ...prevPost,
+                      url: prevPost.title.replace(/\s+/g, "-").toLowerCase(),
+                    }));
+                  }}
+                >
+                  تولید آدرس
+                </Button>
+              </Box>
+
+              <BundledEditor
+                onInit={(evt, editor) => (editorRef.current = editor)}
+                initialValue={post.content.html}
+                init={{
+                  height: "600",
+                  menubar: false,
+                  plugins: [
+                    "advlist",
+                    "anchor",
+                    "autolink",
+                    "help",
+                    "image",
+                    "link",
+                    "lists",
+                    "searchreplace",
+                    "table",
+                    "wordcount",
+                    "directionality",
+                  ],
+                  toolbar:
+                    "blocks | " +
+                    "bold italic forecolor | rtl ltr | alignright aligncenter " +
+                    "alignleft alignjustify | bullist numlist indent outdent | " +
+                    "removeformat",
+                  content_style:
+                    "body { font-family:iranyekan,Arial,sans-serif; font-size:14px; line-height:1.6; }",
+                  language_url: "/langs/fa.js",
+                  language: "fa",
+                }}
+              />
+            </CardContent>
+          </Card>
         </Box>
 
         {/* left column */}
@@ -185,6 +211,7 @@ const AddEditPost = () => {
             width: { mobile: "100%", tablet: "25%" },
             display: "flex",
             flexDirection: "column",
+            gap: "2rem",
           }}
         >
           <Paper
@@ -212,6 +239,20 @@ const AddEditPost = () => {
               {postId ? "بروزرسانی" : "انتشار"}
             </Button>
           </Paper>
+          <Card component={Paper} elevation={3}>
+            <CardHeader
+              sx={{
+                "& > .MuiCardHeader-content": {
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1rem",
+                },
+              }}
+              title="بخش سئو"
+              titleTypographyProps={{ fontWeight: "bold", fontSize: "2rem" }}
+            />
+            <CardContent></CardContent>
+          </Card>
         </Box>
       </Box>
     </>
