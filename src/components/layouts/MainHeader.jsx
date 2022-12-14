@@ -33,7 +33,10 @@ const MainHeader = ({ setOpen }) => {
         sx={{
           transition:
             "padding 0.25s ease-in-out 0s, box-shadow 0.25s ease-in-out 0s, backdrop-filter 0.25s ease-in-out 0s",
-          width: "95%",
+          width: {
+            mobile: "95%",
+            tablet: "97%",
+          },
           padding: scrollTop > 0 ? "1rem 1.5rem" : "1rem 0",
           borderRadius: "0 0 0.5rem 0.5rem",
           ...(scrollTop > 0 && {
@@ -43,8 +46,6 @@ const MainHeader = ({ setOpen }) => {
           }),
         }}
       >
-        {console.log(scrollTop)}
-
         <IconButton
           sx={{
             display: {

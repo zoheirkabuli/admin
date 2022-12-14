@@ -13,7 +13,10 @@ const PostsPage = () => {
     <Box
       component={"div"}
       sx={{
-        width: "95%",
+        width: {
+          mobile: "95%",
+          tablet: "97%",
+        },
         alignSelf: "center",
         position: "relative",
         flexGrow: 1,

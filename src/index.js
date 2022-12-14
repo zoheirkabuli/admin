@@ -56,6 +56,9 @@ const theme = createTheme({
       desktop: 1200,
     },
   },
+  shape: {
+    borderRadius: 5,
+  },
   direction: "rtl",
   spacing: 5,
 });
@@ -72,11 +75,9 @@ function RTL(props) {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <CacheProvider value={cacheRtl}>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </CacheProvider>
-  </React.StrictMode>
+  <CacheProvider value={cacheRtl}>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  </CacheProvider>
 );

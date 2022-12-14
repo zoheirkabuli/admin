@@ -5,10 +5,15 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import MainLayout from "./components/layouts/MainLayout";
 import PostsPage from "./components/posts/PostsPage";
 import AddEditPost from "./components/posts/AddEditPost";
+import MainDashboard from "./components/dashboard/MainDashboard";
 
 const client = new ApolloClient({
-  uri: "https://api-us-east-1.hygraph.com/v2/claar4ifq0jae01uj4d4z0g6n/master",
+  uri: "https://api-eu-central-1-shared-euc1-02.hygraph.com/v2/clb5ao67h048c01ug41agcslq/master",
   cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: { fetchPolicy: "network-only" },
+    query: { fetchPolicy: "network-only" },
+  },
 });
 
 const router = createBrowserRouter([
@@ -19,14 +24,14 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <h1>داشبورد</h1>,
+        element: <MainDashboard />,
       },
       {
         path: "posts",
         element: <PostsPage />,
       },
       {
-        path: "posts/edit/:postUrl",
+        path: "posts/edit/:postId",
         element: <AddEditPost />,
       },
       {

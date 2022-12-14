@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Drawer, Box, IconButton, SvgIcon } from "@mui/material";
-import { isMobile } from "react-device-detect";
 import { Outlet } from "react-router-dom";
 
 // components
@@ -32,18 +31,38 @@ const ToggleIcon = (props) => {
 const MainLayout = () => {
   const [open, setOpen] = useState(false);
   const [openPC, setOpenPC] = useState(true);
+  const [isMobile, setIsMobile] = useState(undefined);
+
+  useEffect(() => {
+    const updateMobile = () => {
+      setIsMobile(window.innerWidth <= 768 ? true : false);
+    };
+
+    updateMobile();
+    window.addEventListener("resize", updateMobile);
+    return () => {
+      window.removeEventListener("resize", updateMobile);
+    };
+  }, []);
+
   return (
-    <Box component={"div"} sx={{ display: "flex", width: "100%" }}>
+    <Box
+      component={"div"}
+      sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}
+    >
       <Drawer
         sx={{
-          ...(!isMobile && {
-            width: openPC ? "25.6rem" : "6.8rem",
-          }),
+          width: {
+            mobile: "auto",
+            tablet: openPC ? "25.6rem" : "6.8rem",
+          },
           flexShrink: 0,
           transition: "width 0.25s",
           "& .MuiDrawer-paper": {
-            ...(!isMobile && { width: openPC ? "25.6rem" : "6.8rem" }),
-            ...(isMobile && { width: "75%" }),
+            width: {
+              mobile: "75%",
+              tablet: openPC ? "25.6rem" : "6.8rem",
+            },
             boxSizing: "border-box",
             transition: "width 0.25s",
             boxShadow: "0px 0px 18px 0px #0000000F",
@@ -119,13 +138,16 @@ const MainLayout = () => {
       <Box
         component={"div"}
         sx={{
+          position: "relative",
           display: "flex",
           flexDirection: "column",
-          width: "100%",
+          transition: "width 0.25s",
+          paddingBottom: "2rem",
+          width: {
+            mobile: "100%",
+            tablet: `calc(100% - ${openPC ? "25.6rem" : "6.8rem"})`,
+          },
           gap: "2rem",
-          ...(!isMobile && {
-            width: `calc(100% - ${openPC ? "25.6rem" : "6.8rem"})`,
-          }),
         }}
       >
         <MainHeader setOpen={setOpen} />
